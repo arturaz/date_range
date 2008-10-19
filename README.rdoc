@@ -14,5 +14,14 @@ will give you Array consisting of 2 elements: [start_of_range, end_of_range].
 It is pretty clever about recognizing what user wants, just check out the code
 to see all the things it does.
 
+It will return nil if one of the times are corrupt (like 13th month)
+or missing.
+
+It will also look at context if no end time is given so:
+* <tt>2008</tt> becomes 2008-01-01 00:00:00 - 2008-12-31 23:59:59
+* <tt>2008-01</tt> becomes 2008-01-01 00:00:00 - 2008-01-31 23:59:59
+* <tt>2008-01-01</tt> becomes 2008-01-01 00:00:00 - 2008-01-01 23:59:59
+* and so forth...
+
 
 Copyright (c) 2008 Artūras Šlajus <x11@arturaz.net>, released under the MIT license
