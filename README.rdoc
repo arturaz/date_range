@@ -1,0 +1,18 @@
+DateRange
+=========
+
+Simple plugin for parsing out date ranges from user input.
+
+
+Example
+=======
+
+  DateRange.parse("2008 - 2010")
+
+will give you Array consisting of 2 elements: [start_of_range, end_of_range].
+
+It is pretty clever about recognizing what user wants, just check out the code
+to see all the things it does.
+
+
+Copyright (c) 2008 Artūras Šlajus <x11@arturaz.net>, released under the MIT license
