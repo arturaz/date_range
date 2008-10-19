@@ -1,11 +1,9 @@
-DateRange
-=========
+== DateRange
 
 Simple plugin for parsing out date ranges from user input.
 
 
-Example
-=======
+== Example
 
   DateRange.parse("2008 - 2010")
 
@@ -18,9 +16,9 @@ It will return nil if one of the times are corrupt (like 13th month)
 or missing.
 
 It will also look at context if no end time is given so:
-* <tt>2008</tt> becomes 2008-01-01 00:00:00 - 2008-12-31 23:59:59
-* <tt>2008-01</tt> becomes 2008-01-01 00:00:00 - 2008-01-31 23:59:59
-* <tt>2008-01-01</tt> becomes 2008-01-01 00:00:00 - 2008-01-01 23:59:59
+* <tt>2008</tt> becomes <tt>2008-01-01 00:00:00 - 2008-12-31 23:59:59</tt>
+* <tt>2008-01</tt> becomes <tt>2008-01-01 00:00:00 - 2008-01-31 23:59:59</tt>
+* <tt>2008-01-01</tt> becomes <tt>2008-01-01 00:00:00 - 2008-01-01 23:59:59</tt>
 * and so forth...
 
 
