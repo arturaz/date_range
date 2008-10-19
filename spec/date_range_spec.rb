@@ -30,14 +30,38 @@ describe DateRange do
         [time, time.end_of_month])
     end
     
+    it "should make year-month-day be equal to " +
+    "year-month-day - end of day" do
+      time = Time.parse('2008-02-12')
+      DateRange.parse("2008-02-12").should eql(
+        [time, time.end_of_day])
+    end
+    
+    it "should make year-month-day hour be equal to " +
+    "year-month-day hour - end of hour" do
+      time = Time.parse('2008-02-12 20:00:00')
+      end_time = Time.parse('2008-02-12 20:59:59')
+      DateRange.parse("2008-02-12 20").should eql(
+        [time, end_time])
+    end
+    
+    it "should make year-month-day hour:minute be equal to " +
+    "year-month-day hour:minute - end of minute" do
+      time = Time.parse('2008-02-12 20:12:00')
+      end_time = Time.parse('2008-02-12 20:12:59')
+      DateRange.parse("2008-02-12 20:12").should eql(
+        [time, end_time])
+    end
+    
+    # Bugfix
     it "should not fail on 2008-09-19" do
       lambda do
         DateRange.parse("2008-09-19")
       end.should_not raise_error
     end
     
-    it "should return [Time, nil] on single date" do
-      from, to = DateRange.parse("2004-05-06")
+    it "should return [Time, nil] on single exact date" do
+      from, to = DateRange.parse("2004-05-06 20:20:20")
       from.should be_instance_of(Time)
       to.should be_nil
     end

@@ -38,6 +38,8 @@ module DateRange
     # It will also look at context if no end time is given so:
     # * <tt>2008</tt> becomes 2008-01-01 00:00:00 - 2008-12-31 23:59:59
     # * <tt>2008-01</tt> becomes 2008-01-01 00:00:00 - 2008-01-31 23:59:59
+    # * <tt>2008-01-01</tt> becomes 2008-01-01 00:00:00 - 2008-01-01 23:59:59
+    # * and so forth...
     def parse(str)
       match_data = str.match(DATE_REGEXP)
       # Oh my god, I hate this shit. Basically it prepares dates for 
@@ -59,6 +61,12 @@ module DateRange
             to = from.end_of_year
           when :month
             to = from.end_of_month
+          when :day
+            to = from.end_of_day
+          when :hour
+            to = from + (59 - from.min).minutes + (59 - from.sec)
+          when :minute
+            to = from + (59 - from.sec)
           end 
         else
           to = Time.parse(to)
@@ -92,8 +100,14 @@ module DateRange
       year, month, day, hour, minute, second = \
         extract_pieces_from_match_data(m, offset)
 
-      if year and month and day
+      if year and month and day and hour and minute and second
         :nothing
+      elsif year and month and day and hour and minute
+        :minute
+      elsif year and month and day and hour
+        :hour
+      elsif year and month and day
+        :day
       elsif year and month
         :month
       elsif year
